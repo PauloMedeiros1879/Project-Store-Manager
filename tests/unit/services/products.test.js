@@ -1,6 +1,7 @@
 const sinon = require('sinon');
+const { expect } = require('chai');
 const productsModel = require('../../../models/products');
-
+const productsService = require('../../../services/products');
 
 describe('Testa productsAll de products da camada Services', () => {
   describe('Testa productsAll, quando são listados todos os produtos do banco de dados', () => {
@@ -17,5 +18,11 @@ describe('Testa productsAll de products da camada Services', () => {
     after(async () => {
       productsModel.productsAll.restore();
     });
+
+    it('Testa se o retorno é um array com objetos', async () => {
+        const res = await productsService.productsAll();
+
+        expect(res).an('array');
+      });
   });
 });

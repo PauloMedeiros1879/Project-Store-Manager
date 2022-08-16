@@ -1,5 +1,7 @@
 const sinon = require('sinon');
+const { expect } = require('chai');
 const connection = require('../../../models/connection');
+const productsModel = require('../../../models/products');
 
 describe('Testa o products da camada Models', () => {
   describe('Testa productsAll, quando são listados todos os produtos do banco de dados', () => {
@@ -11,12 +13,18 @@ describe('Testa o products da camada Models', () => {
       ],
     ];
 
-    beforeEach(async () => {
+    before(async () => {
       sinon.stub(connection, 'execute').resolves(products);
     });
 
-    afterEach(async () => {
+    after(async () => {
       connection.execute.restore();
+    });
+
+    it('Testa se o retorno é um array com objetos', async () => {
+      const response = await productsModel.productsAll();
+
+      expect(response).an('array');
     });
   });
 });
