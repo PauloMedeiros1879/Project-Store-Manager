@@ -15,6 +15,12 @@ const productsService = {
     }
     return product;
   },
+
+  productCreate: async (name) => {
+  const product = await productsModel.productCreate(name);
+
+    return product;
+},
 };
 
 module.exports = productsService;
