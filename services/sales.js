@@ -19,6 +19,22 @@ const salesService = {
     
     return { id: createId, itemsSold: createSales };
   },
+
+  salesAll: async () => {
+    const sale = await salesModel.salesAll();
+
+    return sale;
+  },
+
+  salesId: async (id) => {
+    const sale = await salesModel.salesId(id);
+
+    if (sale.length === 0) {
+      return { message: 'Sale not found' };
+    }
+
+    return sale;
+  },
 };
 
 module.exports = salesService;
