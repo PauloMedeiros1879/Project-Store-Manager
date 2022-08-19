@@ -41,7 +41,10 @@ describe('Testa productsAll de products da camada Services', () => {
         ]);
       });
     
-    describe('Testa productsId da camada Services', () => {
+    
+  });
+
+  describe('Testa productsId da camada Services', () => {
       describe('Testa productsId se o id passado é de um produto que existe', async () => {
         const product = [{ id: 1, name: 'Martelo de Thor' }];
 
@@ -58,8 +61,8 @@ describe('Testa productsAll de products da camada Services', () => {
           expect(res).an('object');
         });
       });
-    });
-
+  });
+  
     describe('Testa função productCreate da camada Services', () => {
       describe('Testa que quando um nome é passado, retorna o produto inserido', () => {
         const productCreated = { id: 4, name: 'Lævateinn' };
@@ -78,5 +81,4 @@ describe('Testa productsAll de products da camada Services', () => {
         });
       });
     });
-  });
 });

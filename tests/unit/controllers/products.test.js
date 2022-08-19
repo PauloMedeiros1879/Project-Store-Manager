@@ -28,7 +28,8 @@ describe('Testa productsAll de products da camada Controllers', () => {
       await productsController.productsAll(req, res);
       expect(res.status.calledWith(200));
     });
-    describe('Testa productsId de productsControllers', () => {
+  });
+  describe('Testa productsId de productsControllers', () => {
       describe('Testa productsId quando o id fornecido não existe no banco de dados', () => {
         const errMessage = { message: 'Product not found' };
 
@@ -65,5 +66,4 @@ describe('Testa productsAll de products da camada Controllers', () => {
         expect(res.status.calledWith(201)).true;
       });
     });
-  });
 });

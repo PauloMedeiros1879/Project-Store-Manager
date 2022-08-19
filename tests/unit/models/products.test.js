@@ -42,8 +42,8 @@ describe('Testa o products da camada Models', () => {
         { id: 3, name: 'Escudo do Capitão América' },
       ]);
     });
-
-    describe('Testa productsId quando o id passado não existe', () => {
+  });
+   describe('Testa productsId quando o id passado não existe', () => {
       before(async () => {
         sinon.stub(connection, 'execute').resolves([[]]);
       });
@@ -75,5 +75,4 @@ describe('Testa o products da camada Models', () => {
         expect(res).not.empty;
       });
     });
-  });
 });
