@@ -23,6 +23,22 @@ describe('Testa productsAll de products da camada Services', () => {
         const res = await productsService.productsAll();
 
         expect(res).an('array');
+    });
+    
+    it('Testa se os produtos retornados estão ordenados', async () => {
+        const res = await productsService.productsAll();
+
+        res.forEach(({ id }, index) => expect(id).equal(index + 1));
+      });
+
+      it('Testa se todos os produtos são retornados', async () => {
+        const res = await productsService.productsAll();
+
+        expect(res).eql([
+          { id: 1, name: 'Martelo de Thor' },
+          { id: 2, name: 'Traje de encolhimento' },
+          { id: 3, name: 'Escudo do Capitão América' },
+        ]);
       });
   });
 });

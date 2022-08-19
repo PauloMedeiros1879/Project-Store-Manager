@@ -22,9 +22,40 @@ describe('Testa o products da camada Models', () => {
     });
 
     it('Testa se o retorno é um array com objetos', async () => {
-      const response = await productsModel.productsAll();
+      const res = await productsModel.productsAll();
 
-      expect(response).an('array');
+      expect(res).an('array');
+    });
+
+    it('Testa se os produtos retornados estão ordenados', async () => {
+      const res = await productsModel.productsAll();
+
+      res.forEach(({ id }, index) => expect(id).equal(index + 1));
+    });
+    
+    it('Testa se todos os produtos são retornados', async () => {
+      const res = await productsModel.productsAll();
+
+      expect(res).eql([
+        { id: 1, name: 'Martelo de Thor' },
+        { id: 2, name: 'Traje de encolhimento' },
+        { id: 3, name: 'Escudo do Capitão América' },
+      ]);
+    });
+
+    describe('Testa productsId quando o id passado não existe', () => {
+      before(async () => {
+        sinon.stub(connection, 'execute').resolves([[]]);
+      });
+
+      after(async () => {
+        connection.execute.restore();
+      });
+      it('Testa se o retorno é um array', async () => {
+        const response = await productsModel.productsId(50);
+
+        expect(response).an('array');
+      });
     });
   });
 });

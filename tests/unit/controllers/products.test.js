@@ -28,5 +28,18 @@ describe('Testa productsAll de products da camada Controllers', () => {
       await productsController.productsAll(req, res);
       expect(res.status.calledWith(200));
     });
+    describe('Testa productsId de productsControllers', () => {
+      describe('Testa productsId quando o id fornecido não existe no banco de dados', () => {
+        const errMessage = { message: 'Product not found' };
+
+        before(async () => {
+          sinon.stub(productsService, 'productsId').resolves(errMessage);
+        });
+
+        after(async () => {
+          productsService.productsId.restore();
+        });
+      });
+    });
   });
 });
