@@ -3,7 +3,6 @@ const { expect } = require('chai');
 const productsService = require('../../../services/products');
 const productsController = require('../../../controllers/products');
 
-describe('Testa productsAll de products da camada Controllers', () => {
   describe('Testa productsAll de products da camada Controllers, quando são retornados todos os produtos', () => {
     const products = [
       { id: 1, name: 'Martelo de Thor' },
@@ -28,6 +27,17 @@ describe('Testa productsAll de products da camada Controllers', () => {
       await productsController.productsAll(req, res);
       expect(res.status.calledWith(200));
     });
+
+    it('Testa se o o json é chamado com um array', async () => {
+      const req = {};
+      const res = {}
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      await productsController.productsAll(req, res);
+
+      expect(res.json.calledWith(products)).true;
+    });
   });
   describe('Testa productsId de productsControllers', () => {
       describe('Testa productsId quando o id fornecido não existe no banco de dados', () => {
@@ -43,7 +53,7 @@ describe('Testa productsAll de products da camada Controllers', () => {
       });
     });
 
-    describe('Testa productCreate quando um name válido', () => {
+  describe('Testa productCreate quando um name válido', () => {
       const productCreated = { id: 4, name: 'Lævateinn' };
 
       before(async () => {
@@ -65,5 +75,4 @@ describe('Testa productsAll de products da camada Controllers', () => {
         await productsController.productCreate(req, res);
         expect(res.status.calledWith(201)).true;
       });
-    });
-});
+  });
