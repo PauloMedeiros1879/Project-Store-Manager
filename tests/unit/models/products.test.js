@@ -57,5 +57,23 @@ describe('Testa o products da camada Models', () => {
         expect(response).an('array');
       });
     });
+
+    describe('Testa productCreate, que insere produto no banco de dados', async () => {
+      const productCreated = [{ insertId: 4 }];
+
+      before(async () => {
+        sinon.stub(connection, 'execute').resolves(productCreated);
+      });
+
+      after(async () => {
+        connection.execute.restore();
+      });
+    
+      it('Testa se o array retornado não está vazio', async () => {
+        const res = await productsModel.productCreate('Lævateinn');
+
+        expect(res).not.empty;
+      });
+    });
   });
 });

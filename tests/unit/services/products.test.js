@@ -40,5 +40,43 @@ describe('Testa productsAll de products da camada Services', () => {
           { id: 3, name: 'Escudo do Capitão América' },
         ]);
       });
+    
+    describe('Testa productsId da camada Services', () => {
+      describe('Testa productsId se o id passado é de um produto que existe', async () => {
+        const product = [{ id: 1, name: 'Martelo de Thor' }];
+
+        before(async () => {
+          sinon.stub(productsModel, 'productsId').resolves(product);
+        });
+
+        after(async () => {
+          productsModel.productsId.restore();
+        });
+
+        it('Testa se o retorno é um objeto', async () => {
+          const res = await productsService.productsId(1);
+          expect(res).an('object');
+        });
+      });
+    });
+
+    describe('Testa função productCreate da camada Services', () => {
+      describe('Testa que quando um nome é passado, retorna o produto inserido', () => {
+        const productCreated = { id: 4, name: 'Lævateinn' };
+
+        before(async () => {
+          sinon.stub(productsModel, 'productCreate').resolves(productCreated);
+        });
+
+        after(async () => {
+          productsModel.productCreate.restore();
+        });
+
+        it('Testa se um objeto é retornado', async () => {
+          const res = await productsService.productCreate({ name: 'Lævateinn' });
+          expect(res).an('object');
+        });
+      });
+    });
   });
 });

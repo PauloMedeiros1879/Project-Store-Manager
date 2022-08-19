@@ -41,5 +41,29 @@ describe('Testa productsAll de products da camada Controllers', () => {
         });
       });
     });
+
+    describe('Testa productCreate quando um name válido', () => {
+      const productCreated = { id: 4, name: 'Lævateinn' };
+
+      before(async () => {
+        sinon.stub(productsService, 'productCreate').resolves(productCreated);
+      });
+
+      after(async () => {
+        productsService.productCreate.restore();
+      });
+    
+      it('Testa se o status de retorno é 201', async () => {
+        const req = {};
+        const res = {};
+
+        req.body = { name: 'Lævateinn' };
+        res.status = sinon.stub().returns(res);
+        res.json = sinon.stub().returns();
+
+        await productsController.productCreate(req, res);
+        expect(res.status.calledWith(201)).true;
+      });
+    });
   });
 });
