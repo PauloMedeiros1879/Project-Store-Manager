@@ -46,6 +46,11 @@ const salesModel = {
     
     return sales;
   },
+
+  salesDelete: (id) => connection.execute(
+    'DELETE FROM StoreManager.sales WHERE id = ?;',
+      [id],
+  ).then(() => true),
 };
 
 module.exports = salesModel;
