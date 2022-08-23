@@ -20,7 +20,17 @@ const productsService = {
   const product = await productsModel.productCreate(name);
 
     return product;
-},
+  },
+  
+  productUpdate: async ({ id, name }) => {
+    const product = await productsModel.productsId(id);
+    if (product.length === 0) {
+      return { message: 'Product not found' };
+    }
+    const productsUpdated = await productsModel.productUpdate(id, name);
+    
+    return productsUpdated;
+  },
 };
 
 module.exports = productsService;

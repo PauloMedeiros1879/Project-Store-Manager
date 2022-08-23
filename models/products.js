@@ -23,6 +23,11 @@ productCreate: async (name) => {
     );
     return { id: insertId, name };
   },
+
+  productUpdate: (id, name) => connection.execute(
+    'UPDATE StoreManager.products SET name = ? WHERE id = ?;',
+      [name, id],
+  ).then(() => ({ id, name })),
 };
 
 module.exports = productsModel;

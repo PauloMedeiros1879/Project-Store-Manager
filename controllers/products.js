@@ -24,6 +24,18 @@ const productsController = {
 
     return res.status(201).json(product);
   },
+
+  productUpdate: async (req, res, next) => {
+    const { name } = req.body;
+    const { id } = req.params;
+
+    const productsUpdated = await productsService.productUpdate({ id, name });
+    if (productsUpdated.message) {
+      return next({ message: productsUpdated.message, code: 404 });
+    }
+
+    return res.status(200).json(productsUpdated);
+  },
 };
 
 module.exports = productsController;
