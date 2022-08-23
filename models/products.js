@@ -24,10 +24,16 @@ productCreate: async (name) => {
     return { id: insertId, name };
   },
 
-  productUpdate: (id, name) => connection.execute(
+productUpdate: (id, name) => connection.execute(
     'UPDATE StoreManager.products SET name = ? WHERE id = ?;',
       [name, id],
   ).then(() => ({ id, name })),
+
+productDelete: (id) => connection.execute(
+    'DELETE FROM StoreManager.products WHERE id = ?;',
+      [id],
+  ).then(() => true),
+
 };
 
 module.exports = productsModel;
