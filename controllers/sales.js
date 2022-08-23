@@ -28,7 +28,7 @@ const salesController = {
     return res.status(200).json(sale);
   },
 
-   salesDelete: async (req, res, next) => {
+  salesDelete: async (req, res, next) => {
     const { id } = req.params;
 
     const salesDeleted = await salesService.salesDelete(id);
@@ -36,6 +36,17 @@ const salesController = {
       return next({ message: salesDeleted.message, code: 404 });
     }
     return res.status(204).end();
+  },
+   
+  salesUpdate: async (req, res, next) => {
+      const { body } = req;
+      const { id } = req.params;
+      const salesUpdated = await salesService.salesUpdate(body, id);
+
+    if (salesUpdated.message) {
+      return next(salesUpdated);
+    }
+    return res.status(200).json(salesUpdated);
   },
 };
 
